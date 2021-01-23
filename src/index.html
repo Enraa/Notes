@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Hello World!</title>
+  <link href="https://fonts.googleapis.com/css?family=Oswald|PT+Sans&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="index.css">
+  <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+  <script defer src="notemanagement.js"></script>
+</head>
+
+<body style="-webkit-app-region: drag">
+  <header id="titlebar">
+    <div id="window-controls">
+      <div class="button" id="selectnotebutton">
+        <img class="icon" id="selectnoteicon" src="icons/arrowdown.png">
+      </div>
+      <div class="button" id="min-button">
+        <img class="icon"
+          srcset="icons/min-w-10.png 1x, icons/min-w-12.png 1.25x, icons/min-w-15.png 1.5x, icons/min-w-15.png 1.75x, icons/min-w-20.png 2x, icons/min-w-20.png 2.25x, icons/min-w-24.png 2.5x, icons/min-w-30.png 3x, icons/min-w-30.png 3.5x"
+          draggable="false" />
+      </div>
+      <div class="button" id="close-button">
+        <img class="icon"
+          srcset="icons/close-w-10.png 1x, icons/close-w-12.png 1.25x, icons/close-w-15.png 1.5x, icons/close-w-15.png 1.75x, icons/close-w-20.png 2x, icons/close-w-20.png 2.25x, icons/close-w-24.png 2.5x, icons/close-w-30.png 3x, icons/close-w-30.png 3.5x"
+          draggable="false" />
+      </div>
+    </div>
+  </header>
+
+  <div id="container">
+    <!-- Input row -->
+    <div class="containedtext">
+      <textarea rows="2" id="text-input" placeholder="Is this actually changing anything"></textarea>
+    </div>
+  </div>
+
+  <script>
+    require('./titlebar.js')
+  </script>
+
+  <div class="noteselectorcont">
+    <div id="currentnotename">CurrentDate</div>
+  </div>
+
+  <script>
+    window.onload = function () {
+      const fs = require('fs')
+      const path = require('path')
+      const moment = require('moment');
+      const notesdir = 'Notes'
+
+      var vartext = fs.readFile(path.join(notesdir, moment().format("YYYY-MM-DD") + ".txt"), function (err, data) {
+        if (err) console.log(err);
+        else {
+          document.getElementById("text-input").value = data;
+          document.getElementById("currentnotename").innerText = moment().format("MMM DD, YYYY")
+          console.log(data)
+        }
+      })
+    };
+  </script>
+</body>
+
+</html>
